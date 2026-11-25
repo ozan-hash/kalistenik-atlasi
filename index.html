@@ -163,9 +163,6 @@ table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-bl
     <div class="panel"><ul class="clean" id="fNo"></ul></div>
   </div>
 
-  <div class="sec"><h3 data-t="ev">Araştırma ne diyor?</h3></div>
-  <div class="ev" id="evF"></div>
-
   <div class="sec"><h3 data-t="tree">İleri seviye hedefler</h3><small data-t="treeS">Merdivenin son basamağından sonra</small></div>
   <div class="tree" id="tree"></div>
 </div></main>
@@ -177,7 +174,6 @@ table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-bl
   <div class="week" id="w1"></div>
   <h3 data-t="w2">Orta seviye · bölünmüş, 4 gün</h3>
   <div class="week" id="w2"></div>
-  <div class="ev" id="evW" style="margin-bottom:14px"></div>
   <p class="note" data-t="note">Her seansa 5–7 dk ısınma ile başla: kol ve kalça çevirme, bilek ısınması, 2×5 skapular çekiş, 10 hava squatı. Eklemde keskin ağrı olursa dur; kas yanması normaldir. Tendonlar kaslardan yavaş güçlenir, bu yüzden basamak atlama.</p>
 </div></section>
 
@@ -786,7 +782,6 @@ function showFam(id,keep){fam=F.find(f=>f.id===id)||F[0];navR();
  $('acc').innerHTML=fam.acc.map(a=>{const x=ACC[a];return '<button class="card" data-a="'+a+'" aria-pressed="false"><span class="n">'+u('noeq')+' · '+mn(x.p[0])+'</span><b>'+T(x.n)+'</b><small>'+T(x.sets)+'</small></button>'}).join('');
  $('fOk').innerHTML=fam.ok.map(x=>'<li class="ok">'+esc(T(x))+'</li>').join('');
  $('fNo').innerHTML=fam.no.map(x=>'<li class="no">'+esc(T(x))+'</li>').join('');
- $('evF').innerHTML=(EV[fam.id]||[]).map(e=>evCard(e)).join('');
  $('tree').innerHTML=fam.tree.map(n=>{const a=T(n[0]),b=T(n[1]);return '<div class="node"><span class="tag i">'+u('next')+'</span><h3 style="margin-top:8px">'+a+'</h3>'+(b!==a?'<small style="color:var(--soft)">'+b+'</small>':'')+'<div class="req">'+u('need')+T(n[2])+'</div></div>'}).join('');
  const i=Math.min(mem[fam.id]??0,fam.st.length-1);const ka=keep&&accSel;pick(i);if(ka)pickAcc(ka);
  if(!keep){const a=document.querySelector('#nav a[aria-current=page]');if(a)a.scrollIntoView({block:'nearest',inline:'nearest'})}}
@@ -800,7 +795,7 @@ addEventListener('hashchange',route);
 /* ---------- weekly plans ---------- */
 const wk=a=>a.map((d,i)=>'<div class="'+(d[3]?'on':'')+'"><b>'+DAYS[i][LI[LANG]]+'</b>'+d[LI[LANG]]+'</div>').join('');
 const evCard=e=>'<div class="node"><p>'+esc(e[LI[LANG]])+'</p><a href="'+SRC[e[3]][1]+'" target="_blank" rel="noopener">'+esc(SRC[e[3]][0])+'</a></div>';
-function weeks(){$('w1').innerHTML=wk(W1);$('w2').innerHTML=wk(W2);$('evW').innerHTML=EVW.map(evCard).join('')}
+function weeks(){$('w1').innerHTML=wk(W1);$('w2').innerHTML=wk(W2)}
 
 $('lang').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.l===LANG)return;LANG=b.dataset.l;try{localStorage.setItem('cal-lang',LANG)}catch(x){}
  applyStatic();weeks();showFam(fam.id,true)});
