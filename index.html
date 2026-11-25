@@ -172,13 +172,13 @@ table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-bl
 const M={traps:'Trapez',delts:'Omuz (deltoid)',pecs:'Göğüs',biceps:'Biseps',triceps:'Triseps',forearms:'Ön kol / kavrama',abs:'Karın',obliques:'Yan karın',lats:'Kanat (latissimus)',lowerback:'Bel',glutes:'Kalça',quads:'Ön bacak',hams:'Arka bacak',calves:'Baldır'};
 
 /* ---------- explicit hang poses (bar at y=44) ---------- */
-const hang={w:[150,44],e:[151,74],s:[152,104],h:[161,92],p:[150,178],k:[155,226],a:[146,270]};
+const hang={w:[150,44],e:[151,74],s:[152,104],h:[158,94],p:[150,178],k:[155,226],a:[146,270]};
 const hang2={...hang,k:[157,226],a:[150,270]};
-const scapB={w:[150,44],e:[151,70],s:[152,96],h:[160,82],p:[150,170],k:[155,218],a:[146,262]};
-const topP={w:[150,44],e:[132,64],s:[153,56],h:[160,32],p:[150,130],k:[156,178],a:[146,222]};
+const scapB={w:[150,44],e:[151,70],s:[152,96],h:[157,85],p:[150,170],k:[155,218],a:[146,262]};
+const topP={w:[150,44],e:[151,72],s:[141,54],h:[139,33],p:[147,126],k:[156,172],a:[147,218]};
 const rowA={sup:1,w:[200,152],e:[201,180],s:[200,208],h:[215,203],p:[130,229],k:[95,240],a:[60,250]};
 const rowB={sup:1,w:[200,152],e:[176,166],s:[196,170],h:[210,162],p:[128,209],k:[94,230],a:[60,250]};
-const hkrB={w:[150,44],e:[151,74],s:[152,104],h:[161,92],p:[150,178],k:[196,166],a:[192,214]};
+const hkrB={w:[150,44],e:[151,74],s:[152,104],h:[158,94],p:[150,178],k:[196,166],a:[192,214]};
 
 /* ---------- IK pose specs: P hip, t torso angle, W wrist target, A ankle target ---------- */
 const sh=(o,dy)=>({...o,P:[o.P[0],o.P[1]+dy]});
@@ -202,7 +202,7 @@ prone_y:{n:'Yüzüstü Y kaldırma',en:'Prone Y raise',A:{P:[150,246],t:-2,W:[27
 sphinx:{n:'Sfenks şınavı',en:'Sphinx push-up',A:PL_A,B:{P:[141,216],t:-17,W:[233,250],A:[44,250]},pr:['floor'],dur:2600,tempo:'1 sn it · 2 sn in',sets:'3 × 8–12',rest:'60 sn',p:['triceps'],s:['pecs','abs','delts'],how:'Dirsek plankından avuçlarla iterek dirsekleri yerden kaldır. Triseps için aletsiz “dips” hazırlığı.',cues:['Önkollar yerde, eller ileri bakar.','Avuçlarla yere bas, dirsekleri kaldır.','Gövde plank pozisyonunu korur.']},
 diamond:{n:'Elmas şınav',en:'Diamond push-up',A:PU_A,B:PU_B,pr:['floor'],dur:2600,tempo:'1 sn it · 2 sn in',sets:'3 × 6–12',rest:'90 sn',p:['triceps','pecs'],s:['delts','abs'],how:'Başparmak ve işaret parmakları göğüs altında elmas oluşturur. Triseps ağırlıklı şınav.',cues:['Eller göğüs ortasının altında.','Dirsekler gövdeye yakın geriye gider.','Diz üstünde başlayabilirsin.']},
 pike:{n:'Pike şınavı',en:'Pike push-up',A:PK_A,B:PK_B,pr:['floor'],dur:2600,tempo:'2 sn in · 1 sn it',sets:'3 × 6–12',rest:'90 sn',p:['delts','triceps'],s:['traps','pecs','abs'],how:'Kalça yukarıda ters V pozisyonunda dikey itiş. Omuz için aletsiz “overhead press”.',cues:['Eller omuz genişliğinde, kalça yüksek.','Başın tepesini ellerin önüne indir (üçgen).','Dirsekler 45° geriye.']},
-glute_bridge:{n:'Kalça köprüsü',en:'Glute bridge',A:{sup:1,P:[150,246],t:0,W:[166,250],A:[100,250],kb:1},B:{sup:1,P:[158,210],t:29.4,W:[166,250],A:[100,250],kb:1},pr:['floor'],dur:2600,tempo:'1 sn kaldır · 2 sn tut',sets:'3 × 15–20',rest:'60 sn',p:['glutes'],s:['hams','lowerback','abs'],how:'Sırtüstü, dizler bükük; topuklarla iterek kalçayı kaldır. Squat ve pistol için kalça gücü.',cues:['Topuklar kalçaya yakın.','Kalçayı sıkarak kaldır, beli değil.','Tek bacakla zorlaştır.']},
+glute_bridge:{n:'Kalça köprüsü',en:'Glute bridge',A:{sup:1,P:[150,246],t:0,W:[166,250],A:[100,250],kb:1},B:{sup:1,hd:-30,P:[158,210],t:29.4,W:[166,250],A:[100,250],kb:1},pr:['floor'],dur:2600,tempo:'1 sn kaldır · 2 sn tut',sets:'3 × 15–20',rest:'60 sn',p:['glutes'],s:['hams','lowerback','abs'],how:'Sırtüstü, dizler bükük; topuklarla iterek kalçayı kaldır. Squat ve pistol için kalça gücü.',cues:['Topuklar kalçaya yakın.','Kalçayı sıkarak kaldır, beli değil.','Tek bacakla zorlaştır.']},
 wall_sit:{n:'Duvar oturuşu',en:'Wall sit',A:{P:[118,186],t:-90,W:[120,172],A:[166,248]},B:{P:[118,184],t:-90,W:[120,170],A:[166,248]},pr:['floor',['wall',100]],dur:3000,tempo:'Statik',sets:'3 × 30–60 sn',rest:'60 sn',p:['quads'],s:['glutes','calves'],how:'Sırt duvarda, uyluklar yere paralel sandalye pozisyonu. Ön bacak dayanıklılığı.',cues:['Dizler ayak bileklerinin üstünde, 90°.','Sırt tamamen duvarda.','Ağırlık topuklarda.']},
 calf_raise:{n:'Baldır kaldırma',en:'Calf raise',A:ST,B:{P:[150,143],t:-90,W:[150,129],A:[150,241]},pr:['floor'],dur:2000,tempo:'1 sn kalk · 1 sn tut · 1 sn in',sets:'3 × 15–25',rest:'45 sn',p:['calves'],s:['abs'],how:'Parmak uçlarına yüksel, yavaş in. Basamak kenarında tek bacakla zorlaştır.',cues:['Tam yüksel, tepede 1 sn tut.','Topuğu kontrollü indir.','Denge için duvara hafif dokun.']},
 sl_rdl:{n:'Tek bacak RDL',en:'Single-leg Romanian deadlift',A:{...ST,A2:[142,236]},B:{P:[148,160],t:-5,W:[220,212],A:[150,250],A2:[54,168]},pr:['floor'],dur:3000,tempo:'2 sn eğil · 1 sn kalk',sets:'3 × 8–10 / bacak',rest:'60 sn',p:['hams','glutes'],s:['lowerback','calves','abs'],how:'Tek ayak üzerinde kalçadan menteşe; arka bacak geriye uzanır. Arka bacak ve denge.',cues:['Destek dizi hafif bükük.','Sırt düz, kalça geriye.','Gövde ve arka bacak tek çizgi.']},
@@ -391,8 +391,8 @@ function phase(now){const d=cur.dur||2600,x=((now-t0)%d)/d;
  return .5-.5*Math.cos(x*2*Math.PI)}
 function props(P){let o='';const st='var(--steel)',fl='var(--line)';
  for(const p of cur.pr){const k=Array.isArray(p)?p[0]:p;
-  if(k==='hi')o+=ln([40,44],[260,44],6,st)+ln([44,44],[44,10],5,st)+ln([256,44],[256,10],5,st);
-  if(k==='lo')o+=ln([200,150],[200,254],5,st)+ln([170,150],[240,150],6,st)+ln([10,256],[290,256],3,fl);
+  if(k==='hi')o+=bar3d(P.w[0],44,1);
+  if(k==='lo')o+=ln([185,141],[185,256],4,st)+bar3d(200,150,0)+ln([10,257],[290,257],3,fl);
   if(k==='floor')o+=ln([10,257],[290,257],3,fl);
   if(k==='box')o+='<rect x="'+p[1]+'" y="'+p[2]+'" width="'+p[3]+'" height="'+(256-p[2])+'" rx="5" fill="var(--mus)"/>';
   if(k==='wall')o+='<rect x="'+(p[1]-(p[1]<150?14:0))+'" y="0" width="14" height="256" fill="var(--mus)"/>';
@@ -422,23 +422,28 @@ const MS={traps:['Trapez','Traps','Trapèzes'],delts:['Omuz','Shoulders','Épaul
 const FB={f:['ÖN','FRONT','AVANT'],b:['ARKA','BACK','ARRIÈRE']};
 const MSEG={};for(const k in MUS)for(const m of MUS[k])if(!MSEG[m[0]])MSEG[m[0]]=[k,m[1],m[2],m[3]];
 function arrowHead(a,b,s,col){const dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy)||1,ux=dx/d,uy=dy/d;return '<path d="M'+f1(b[0])+' '+f1(b[1])+'L'+f1(b[0]-ux*s-uy*s*.6)+' '+f1(b[1]-uy*s+ux*s*.6)+'L'+f1(b[0]-ux*s+uy*s*.6)+' '+f1(b[1]-uy*s-ux*s*.6)+'Z" fill="'+col+'"/>'}
-function overlay(P,frs){if(!showLbl)return '';const li=LI[LANG],fs=VB[2]/26,o=[];
- /* facing indicator at the head */
- const tf=frs.t,h=P.h,F=tf.F,fa=[h[0]+F[0]*16,h[1]+F[1]*16],fb=[h[0]+F[0]*(16+fs*1.5),h[1]+F[1]*(16+fs*1.5)],ba=[h[0]-F[0]*16,h[1]-F[1]*16],bb=[h[0]-F[0]*(16+fs*1.5),h[1]-F[1]*(16+fs*1.5)];
- let s='<g font-family="Inter,sans-serif" font-weight="700" font-size="'+f1(fs*.78)+'">';
- s+='<line x1="'+f1(fa[0])+'" y1="'+f1(fa[1])+'" x2="'+f1(fb[0])+'" y2="'+f1(fb[1])+'" stroke="var(--front)" stroke-width="'+f1(fs*.16)+'"/>'+arrowHead(fa,fb,fs*.55,'var(--front)');
- const anc=v=>Math.abs(v[0])<.35?'middle':(v[0]>0?'start':'end'),fp=[fb[0]+F[0]*fs*.5,fb[1]+F[1]*fs*.5+fs*.3],bp=[bb[0]-F[0]*fs*.3,bb[1]-F[1]*fs*.3+fs*.3];
- s+='<text x="'+f1(fp[0])+'" y="'+f1(fp[1])+'" text-anchor="'+anc(F)+'" fill="var(--front)">'+FB.f[li]+'</text>';
+function overlay(P,frs){if(!showLbl)return '';const li=LI[LANG],fs=VB[2]/26,items=[],boxes=[];
+ const tf=frs.t,h=P.h,F=tf.F,anc=v=>Math.abs(v[0])<.35?'middle':(v[0]>0?'start':'end');
+ const fa=[h[0]+F[0]*16,h[1]+F[1]*16],fb=[h[0]+F[0]*(16+fs*1.5),h[1]+F[1]*(16+fs*1.5)],ba=[h[0]-F[0]*16,h[1]-F[1]*16],bb=[h[0]-F[0]*(16+fs*1.5),h[1]-F[1]*(16+fs*1.5)];
+ let s='<line x1="'+f1(fa[0])+'" y1="'+f1(fa[1])+'" x2="'+f1(fb[0])+'" y2="'+f1(fb[1])+'" stroke="var(--front)" stroke-width="'+f1(fs*.16)+'"/>'+arrowHead(fa,fb,fs*.55,'var(--front)');
  s+='<line x1="'+f1(ba[0])+'" y1="'+f1(ba[1])+'" x2="'+f1(bb[0])+'" y2="'+f1(bb[1])+'" stroke="var(--soft)" stroke-width="'+f1(fs*.12)+'" stroke-dasharray="'+f1(fs*.25)+' '+f1(fs*.2)+'"/>';
- s+='<text x="'+f1(bp[0])+'" y="'+f1(bp[1])+'" text-anchor="'+anc([-F[0],-F[1]])+'" fill="var(--soft)">'+FB.b[li]+'</text></g>';
- /* primary-muscle callouts */
- const L=[];for(const m of cur.p.slice(0,3)){const g=MSEG[m];if(!g)continue;const fr=frs[g[0]],pr=PROF[g[0]],tm=(g[2]+g[3])/2,wf=wAt(pr,tm,1),wb=wAt(pr,tm,2);
-  const side=g[1]==='b'?-1:1,c=at(fr,tm,side>0?wf*.5:-wb*.5),d=[fr.F[0]*side,fr.F[1]*side],w=side>0?wf:wb,lp=[c[0]+d[0]*(w*.5+fs*1.6),c[1]+d[1]*(w*.5+fs*1.6)];L.push({c,lp,d,t:MS[m][li]})}
- L.sort((a,b)=>a.lp[1]-b.lp[1]);for(let i=1;i<L.length;i++)if(Math.abs(L[i].lp[1]-L[i-1].lp[1])<fs*1.25&&Math.abs(L[i].lp[0]-L[i-1].lp[0])<fs*6)L[i].lp[1]=L[i-1].lp[1]+fs*1.25;
- s+='<g font-family="Inter,sans-serif" font-weight="600" font-size="'+f1(fs*.82)+'">';
- for(const l of L){const an=l.d[0]>=.2?'start':l.d[0]<=-.2?'end':'middle',tx=l.lp[0]+(an==='start'?fs*.25:an==='end'?-fs*.25:0),ty=l.lp[1]+(an==='middle'?(l.d[1]>0?fs*.9:-fs*.3):fs*.3);
-  s+='<circle cx="'+f1(l.c[0])+'" cy="'+f1(l.c[1])+'" r="'+f1(fs*.17)+'" fill="#fff" stroke="var(--acc)" stroke-width="'+f1(fs*.08)+'"/><line x1="'+f1(l.c[0])+'" y1="'+f1(l.c[1])+'" x2="'+f1(l.lp[0])+'" y2="'+f1(l.lp[1])+'" stroke="var(--acc)" stroke-width="'+f1(fs*.07)+'"/>';
-  s+='<text x="'+f1(tx)+'" y="'+f1(ty)+'" text-anchor="'+an+'" fill="var(--ink)" stroke="var(--card)" stroke-width="'+f1(fs*.28)+'" paint-order="stroke">'+esc(l.t)+'</text>'}
+ items.push({t:FB.f[li],x:fb[0]+F[0]*fs*.5,y:fb[1]+F[1]*fs*.5+fs*.3,an:anc(F),col:'var(--front)',w:700,fx:1});
+ items.push({t:FB.b[li],x:bb[0]-F[0]*fs*.3,y:bb[1]-F[1]*fs*.3+fs*.3,an:anc([-F[0],-F[1]]),col:'var(--soft)',w:700,fx:1});
+ const b=barXY();if(b){const sg=gripSign(P);items.push({t:GL[li],x:b[0]+sg*fs*2.8,y:b[1]-fs*1.4,an:sg>0?'start':'end',col:'var(--ink)',w:600,lead:[b[0]+sg*11,b[1]-4],lc:'var(--ink)'})}
+ for(const m of cur.p.slice(0,3)){const g=MSEG[m];if(!g)continue;const fr=frs[g[0]],pr=PROF[g[0]],tm=(g[2]+g[3])/2,wf=wAt(pr,tm,1),wb=wAt(pr,tm,2);
+  const side=g[1]==='b'?-1:1,c=at(fr,tm,side>0?wf*.5:-wb*.5),d=[fr.F[0]*side,fr.F[1]*side],w=side>0?wf:wb,lp=[c[0]+d[0]*(w*.5+fs*1.6),c[1]+d[1]*(w*.5+fs*1.6)];
+  const an=d[0]>=.2?'start':d[0]<=-.2?'end':'middle';items.push({t:MS[m][li],x:lp[0]+(an==='start'?fs*.25:an==='end'?-fs*.25:0),y:lp[1]+(an==='middle'?(d[1]>0?fs*.9:-fs*.3):fs*.3),an,col:'var(--ink)',w:600,lead:c,lc:'var(--acc)',dot:1})}
+ const box=it=>{const wd=it.t.length*fs*.47,x0=it.an==='start'?it.x:it.an==='end'?it.x-wd:it.x-wd/2;return [x0-2,it.y-fs*.82,x0+wd+2,it.y+fs*.22]};
+ const hit=(a,b)=>a[0]<b[2]&&b[0]<a[2]&&a[1]<b[3]&&b[1]<a[3];
+ const vx0=VB[0]+2,vx1=VB[0]+VB[2]-2;
+ for(const it of items){let bx=box(it);if(bx[0]<vx0){it.x+=vx0-bx[0]}if(bx[2]>vx1){it.x-=bx[2]-vx1}
+  if(!it.fx){const base=it.y;for(let k=1;k<14&&boxes.some(o=>hit(o,box(it)));k++)it.y=base+(k%2?1:-1)*Math.ceil(k/2)*fs*.95}
+  boxes.push(box(it))}
+ s+='<g font-family="Inter,sans-serif">';
+ for(const it of items){if(it.lead){const ex=it.an==='start'?it.x-fs*.2:it.an==='end'?it.x+fs*.2:it.x,ey=it.y-fs*.3;
+   s+='<line x1="'+f1(it.lead[0])+'" y1="'+f1(it.lead[1])+'" x2="'+f1(ex)+'" y2="'+f1(ey)+'" stroke="'+it.lc+'" stroke-width="'+f1(fs*.07)+'"/>';
+   if(it.dot)s+='<circle cx="'+f1(it.lead[0])+'" cy="'+f1(it.lead[1])+'" r="'+f1(fs*.17)+'" fill="#fff" stroke="var(--acc)" stroke-width="'+f1(fs*.08)+'"/>'}
+  s+='<text x="'+f1(it.x)+'" y="'+f1(it.y)+'" text-anchor="'+it.an+'" font-weight="'+it.w+'" font-size="'+f1(fs*(it.fx?.78:.8))+'" fill="'+it.col+'" stroke="var(--card)" stroke-width="'+f1(fs*.28)+'" paint-order="stroke">'+esc(it.t)+'</text>'}
  return s+'</g>'}
 /* ghost of the start pose + arrow of the main moving joint */
 let MOVE=null;
@@ -448,6 +453,22 @@ function ghost(){if(!MOVE)return '';const P=JA,g='var(--soft)';const seg=(a,b,w)
  const a=MOVE.a,b=MOVE.b,mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=b[0]-a[0],dy=b[1]-a[1],c=[mx-dy*.18,my+dx*.18],end=[b[0]-(b[0]-c[0])*.12,b[1]-(b[1]-c[1])*.12];
  o+='<path d="M'+f1(a[0])+' '+f1(a[1])+'Q'+f1(c[0])+' '+f1(c[1])+' '+f1(end[0])+' '+f1(end[1])+'" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-dasharray="4 3" opacity=".55"/>'+arrowHead(c,b,6,'var(--ink)').replace('<path','<path opacity=".55"');
  return o}
+/* bar seen end-on (side view) + hands wrapped around it */
+function barXY(){const k=cur.pr.find(p=>p==='hi'||p==='lo');if(!k)return null;return k==='hi'?[JA.w[0],44]:[200,150]}
+function bar3d(bx,by,top){const st='var(--steel)',back=[bx-15,by-9];let o='';
+ if(top)o+=ln([back[0],back[1]],[back[0],Math.min(VB[1]-6,back[1]-40)],5,st);
+ o+='<line x1="'+f1(back[0])+'" y1="'+f1(back[1])+'" x2="'+f1(bx)+'" y2="'+f1(by)+'" stroke="var(--steel)" stroke-width="13" stroke-linecap="round" opacity=".55"/>';
+ o+='<circle cx="'+f1(bx)+'" cy="'+f1(by)+'" r="6.5" fill="var(--steel)"/><circle cx="'+f1(bx-2.2)+'" cy="'+f1(by-2.2)+'" r="2" fill="#fff" opacity=".45"/>';return o}
+function gripSign(P){const fr=frame(P.p,P.s,'t',P.sup);return Math.abs(fr.F[0])<.3?1:Math.sign(fr.F[0])}
+function grip(P,far){const b=barXY(),sg=gripSign(P),r=9.4,arc=(a0,a1)=>{let d='';const n=10;for(let i=0;i<=n;i++){const a=(a0+(a1-a0)*i/n)*R;d+=(i?'L':'M')+f1(b[0]+Math.cos(a)*r)+' '+f1(b[1]+Math.sin(a)*r)}return d};
+ const A=sg>0?[150,390]:[30,-210],T=sg>0?[150,95]:[30,85],col=far?'var(--bodyfar)':'var(--body)';
+ let o='<path d="'+arc(A[0],A[1])+'" fill="none" stroke="var(--bodyedge)" stroke-width="8.6" stroke-linecap="round"/><path d="'+arc(A[0],A[1])+'" fill="none" stroke="'+col+'" stroke-width="7.2" stroke-linecap="round"/>';
+ o+='<path d="'+arc(T[0],T[1])+'" fill="none" stroke="var(--bodyedge)" stroke-width="5.4" stroke-linecap="round"/><path d="'+arc(T[0],T[1])+'" fill="none" stroke="'+col+'" stroke-width="4.2" stroke-linecap="round"/>';
+ if(!far)for(const a of (sg>0?[300,335,10]:[240,205,170])){const x=b[0]+Math.cos(a*R)*r,y=b[1]+Math.sin(a*R)*r;o+='<circle cx="'+f1(x)+'" cy="'+f1(y)+'" r="1.3" fill="var(--bodyedge)"/>'}
+ return o}
+const GL=['Avuçlar öne · overhand','Palms facing away · overhand','Paumes vers l\'avant · pronation'];
+function gripLabel(P){const b=barXY();if(!b||!showLbl)return '';const sg=gripSign(P),fs=VB[2]/26,li=LI[LANG],x0=b[0]+sg*12,y0=b[1]-4,x1=b[0]+sg*(fs*2.6),y1=b[1]-fs*1.6;
+ return '<g font-family="Inter,sans-serif" font-weight="600" font-size="'+f1(fs*.74)+'"><line x1="'+f1(x0)+'" y1="'+f1(y0)+'" x2="'+f1(x1)+'" y2="'+f1(y1)+'" stroke="var(--ink)" stroke-width="'+f1(fs*.06)+'"/><text x="'+f1(x1+sg*fs*.2)+'" y="'+f1(y1-fs*.15)+'" text-anchor="'+(sg>0?'start':'end')+'" fill="var(--ink)" stroke="var(--card)" stroke-width="'+f1(fs*.26)+'" paint-order="stroke">'+esc(GL[li])+'</text></g>'}
 /* auto-fit the camera to the pose */
 let VB=[0,0,300,300];
 function fitView(){const xs=[],ys=[];for(const J of [JA,JB])for(const k in J)if(Array.isArray(J[k])){xs.push(J[k][0]);ys.push(J[k][1])}
@@ -459,12 +480,12 @@ function fitView(){const xs=[],ys=[];for(const J of [JA,JB])for(const k in J)if(
 function draw(t){const P={sup:JA.sup};for(const k in JA)if(Array.isArray(JA[k]))P[k]=L(JA[k],JB[k],t);
  let o=props(P)+shadow(P)+ghost();const sp=P.sup;
  const A2=limb(P.s2,P.e2,'ua',sp,1),F2=limb(P.e2,P.w2,'fa',sp,1),T2=limb(P.p2,P.k2,'th',sp,1),S2=limb(P.k2,P.a2,'sh',sp,1);
- o+=foot(P.k2,P.a2,sp,1)+S2.o+T2.o+hand(P.e2,P.w2,1)+F2.o+A2.o;
+ const BG=!!barXY();o+=foot(P.k2,P.a2,sp,1)+S2.o+T2.o+(BG?'':hand(P.e2,P.w2,1))+F2.o+A2.o+(BG?grip(P,1):'');
  const TT=limb(P.p,P.s,'t',sp,0),SH=limb(P.k,P.a,'sh',sp,0),TH=limb(P.p,P.k,'th',sp,0),FA=limb(P.e,P.w,'fa',sp,0),UA=limb(P.s,P.e,'ua',sp,0);
  o+=head(P)+TT.o;
  o+=foot(P.k,P.a,sp,0)+SH.o+TH.o;
  o+=cues(TT.fr,TH.fr,SH.fr,sp);
- o+=hand(P.e,P.w,0)+FA.o+UA.o;
+ o+=(BG?'':hand(P.e,P.w,0))+FA.o+UA.o+(BG?grip(P,0):'');
  o+=overlay(P,{t:TT.fr,th:TH.fr,sh:SH.fr,ua:UA.fr,fa:FA.fr});
  fig.innerHTML=o}
 const rm=matchMedia('(prefers-reduced-motion: reduce)');
