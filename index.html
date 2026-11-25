@@ -181,11 +181,7 @@ table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-bl
   <p class="note" data-t="note">Her seansa 5–7 dk ısınma ile başla: kol ve kalça çevirme, bilek ısınması, 2×5 skapular çekiş, 10 hava squatı. Eklemde keskin ağrı olursa dur; kas yanması normaldir. Tendonlar kaslardan yavaş güçlenir, bu yüzden basamak atlama.</p>
 </div></section>
 
-<section class="band"><div class="wrap">
-  <h2 data-t="src">Kaynaklar</h2>
-  <p class="note" data-t="srcN">Set, tekrar ve basamaklar aşağıdaki kılavuz, program ve çalışmalara göre düzenlendi. Bu sayfa genel bilgi içindir; sağlık sorunun varsa önce bir uzmana danış.</p>
-  <ol class="srcl" id="srcl"></ol>
-</div></section>
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
@@ -804,7 +800,7 @@ addEventListener('hashchange',route);
 /* ---------- weekly plans ---------- */
 const wk=a=>a.map((d,i)=>'<div class="'+(d[3]?'on':'')+'"><b>'+DAYS[i][LI[LANG]]+'</b>'+d[LI[LANG]]+'</div>').join('');
 const evCard=e=>'<div class="node"><p>'+esc(e[LI[LANG]])+'</p><a href="'+SRC[e[3]][1]+'" target="_blank" rel="noopener">'+esc(SRC[e[3]][0])+'</a></div>';
-function weeks(){$('w1').innerHTML=wk(W1);$('w2').innerHTML=wk(W2);$('evW').innerHTML=EVW.map(evCard).join('');$('srcl').innerHTML=Object.values(SRC).map(x=>'<li><a href="'+x[1]+'" target="_blank" rel="noopener">'+esc(x[0])+'</a></li>').join('')}
+function weeks(){$('w1').innerHTML=wk(W1);$('w2').innerHTML=wk(W2);$('evW').innerHTML=EVW.map(evCard).join('')}
 
 $('lang').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.l===LANG)return;LANG=b.dataset.l;try{localStorage.setItem('cal-lang',LANG)}catch(x){}
  applyStatic();weeks();showFam(fam.id,true)});
