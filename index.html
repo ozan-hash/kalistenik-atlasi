@@ -595,8 +595,7 @@ function init3(){if(G3.ok||!window.THREE)return G3.ok;try{
  sc.add(new THREE.HemisphereLight(0xffffff,0x8a8f8c,.75));const key=new THREE.DirectionalLight(0xffffff,.75);key.position.set(4,8,6);key.castShadow=true;
  key.shadow.mapSize.set(1024,1024);Object.assign(key.shadow.camera,{left:-5,right:5,top:6,bottom:-3,near:.5,far:30});sc.add(key);
  const fill=new THREE.DirectionalLight(0xffffff,.28);fill.position.set(-5,3,-4);sc.add(fill);
- const floor=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.ShadowMaterial({opacity:.18}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;sc.add(floor);
- const grid=new THREE.Mesh(new THREE.CircleGeometry(3.4,48),mat(0xd6dbd5,.95));grid.rotation.x=-Math.PI/2;grid.position.y=-.002;grid.receiveShadow=true;sc.add(grid);
+ const floor=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.ShadowMaterial({opacity:.22}));floor.rotation.x=-Math.PI/2;floor.receiveShadow=true;sc.add(floor);
  const M={skin:mat(0x97a29d),far:mat(0x97a29d),idle:mat(0xa9b3ae),p:mat(0xe2412b,.5),s:mat(0xf2a090,.55),hair:mat(0x2b302d,.8),eye:mat(0x1b1f1d,.3),shoe:mat(0x34506a,.5),steel:mat(0x7d878f,.35),prop:mat(0xd3d8d3,.9)};
  const segs={},mus=[];
  const mk=(name,kind)=>{const g=new THREE.Group(),body=new THREE.Mesh(bodyGeo(kind,LEN[kind]),M.skin);body.castShadow=true;g.add(body);
