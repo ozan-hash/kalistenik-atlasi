@@ -19,7 +19,7 @@ LAYOUT: başlık, aile sekmeleri, sahne, basamaklar, aletsiz destek, detay, antr
 --card:light-dark(#ffffff,#1b201d);--line:light-dark(#dfe2dc,#2b322e);
 --mus:light-dark(#dcdfd9,#2e3531);--skin:light-dark(#c9cec7,#3c443f);
 --acc:light-dark(#e2412b,#ff5a40);--acc2:light-dark(#f5a898,#8f3c2f);--steel:light-dark(#7d878f,#8e98a0);
---body:light-dark(#9ba6a1,#77827d);--bodyfar:light-dark(#c9d0cc,#454e4a);--bodyhi:light-dark(#aab4af,#848f8a);--bodyedge:light-dark(#7c8782,#5b6560);--hair:light-dark(#3a3f3c,#2a2f2c);
+--body:light-dark(#9ba6a1,#77827d);--bodyfar:light-dark(#d7ddda,#3a423e);--bodyhi:light-dark(#aab4af,#848f8a);--bodyedge:light-dark(#7c8782,#5b6560);--hair:light-dark(#3a3f3c,#1f2321);--front:light-dark(#1d6fd8,#6aa8ff);
 --gb:light-dark(#dff0e4,#1f3a2a);--gt:light-dark(#1c5a33,#a9e2bd);--yb:light-dark(#fdecc8,#3d2f12);--yt:light-dark(#7a4c00,#f3d08c);--pb:light-dark(#e6e4fb,#2a2846);--pt:light-dark(#3b3591,#c4c0f5)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box;min-width:0}
@@ -43,6 +43,9 @@ nav{position:relative;z-index:5;background:var(--bg);border-bottom:1px solid var
 .lang button{font:600 14px Inter,sans-serif;min-width:48px;min-height:40px;border:0;border-radius:99px;background:none;color:var(--ink);cursor:pointer}
 .lang button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
 .lang button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.lbl{position:absolute;right:12px;bottom:12px;font:600 13px Inter,sans-serif;min-height:36px;padding:0 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;z-index:2}
+.lbl[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+.lbl:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
 .fhead{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:end;justify-content:space-between}
 .stage{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-top:20px}
 .panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;position:relative}
@@ -109,7 +112,7 @@ table{font-size:13px}.stack thead{display:none}.stack tr{display:grid;padding-bl
 
   <div class="stage">
     <div class="panel">
-      <div class="cap"><span id="figName"></span><span id="figTempo"></span></div>
+      <div class="cap"><span id="figName"></span><span id="figTempo"></span></div><button class="lbl" id="lblBtn" aria-pressed="true" data-t="labels">Etiketler</button>
       <svg id="fig" viewBox="0 0 300 300" role="img" aria-label="Hareketin animasyonlu gösterimi"></svg>
     </div>
     <div class="panel">
@@ -381,11 +384,6 @@ const circ=(c,r,f)=>'<circle cx="'+f1(c[0])+'" cy="'+f1(c[1])+'" r="'+r+'" fill=
 function hand(e,w,far){const fr=frame(e,w,'fa',0),c=at(fr,1.12,0),ang=Math.atan2(fr.u[1],fr.u[0])/R;return '<ellipse cx="'+f1(c[0])+'" cy="'+f1(c[1])+'" rx="6" ry="4.4" transform="rotate('+f1(ang)+' '+f1(c[0])+' '+f1(c[1])+')" fill="var('+(far?'--bodyfar':'--body')+')" stroke="var(--bodyedge)" stroke-width=".7"/>'}
 function foot(k,a,sup,far){const fr=frame(k,a,'sh',sup),u=fr.u,F=fr.F,P=(du,df)=>[a[0]+u[0]*du+F[0]*df,a[1]+u[1]*du+F[1]*df];
  return '<path d="'+smooth([P(-2,-4.5),P(5,-5),P(7,3),P(6,14),P(2,15),P(-1,6)])+'" fill="var('+(far?'--bodyfar':'--body')+')" stroke="var(--bodyedge)" stroke-width=".7"/>'}
-function head(P){const fr=frame(P.p,P.s,'t',P.sup),U=fr.u,F=fr.F,h=P.h,Q=(du,df)=>[h[0]+U[0]*du+F[0]*df,h[1]+U[1]*du+F[1]*df];
- const nb=at(fr,1.02,1.5);let o='<path d="M'+f1(nb[0])+' '+f1(nb[1])+'L'+f1(Q(-2,0)[0])+' '+f1(Q(-2,0)[1])+'" stroke="var(--body)" stroke-width="10" stroke-linecap="round"/>';
- o+=circ(Q(.5,-1.5),11.2,'var(--hair)')+circ(Q(-1,1.2),10.6,'var(--body)');
- const n1=Q(1,10.8),n2=Q(-2.5,13.2),n3=Q(-4,10.4);o+='<path d="M'+f1(n1[0])+' '+f1(n1[1])+'L'+f1(n2[0])+' '+f1(n2[1])+'L'+f1(n3[0])+' '+f1(n3[1])+'Z" fill="var(--body)"/>';
- o+=circ(Q(-1,-1),2.4,'var(--bodyedge)');return o}
 function shadow(P){if(!cur.pr.some(p=>['floor','lo'].includes(Array.isArray(p)?p[0]:p)))return '';const xs=['w','a','w2','a2','p','k'].filter(k=>P[k][1]>200).map(k=>P[k][0]);if(!xs.length)return '';
  const lo=Math.min(...xs),hi=Math.max(...xs);return '<ellipse cx="'+f1((lo+hi)/2)+'" cy="258" rx="'+f1((hi-lo)/2+16)+'" ry="4" fill="var(--ink)" opacity=".1"/>'}
 function phase(now){const d=cur.dur||2600,x=((now-t0)%d)/d;
@@ -402,13 +400,72 @@ function props(P){let o='';const st='var(--steel)',fl='var(--line)';
   if(k==='pb')o+=ln([130,200],[174,200],6,st)+ln([136,200],[132,256],4,st)+ln([168,200],[172,256],4,st);
   if(k==='band')o+='<path d="M146 44 L'+(P.k[0]-5).toFixed(1)+' '+P.k[1].toFixed(1)+' Q'+P.k[0].toFixed(1)+' '+(P.k[1]+9).toFixed(1)+' '+(P.k[0]+5).toFixed(1)+' '+P.k[1].toFixed(1)+' L156 44" fill="none" stroke="var(--acc2)" stroke-width="4" stroke-linejoin="round"/>'}
  return o}
+function head(P){const fr=frame(P.p,P.s,'t',P.sup),U=fr.u,F=fr.F,h=P.h,Q=(du,df)=>[h[0]+U[0]*du+F[0]*df,h[1]+U[1]*du+F[1]*df],pt=q=>f1(q[0])+' '+f1(q[1]);
+ const nb=at(fr,1.02,1.5);let o='<path d="M'+pt(nb)+'L'+pt(Q(-3,.5))+'" stroke="var(--body)" stroke-width="10" stroke-linecap="round"/>';
+ o+='<path d="'+smooth([Q(11,-4),Q(6,-12),Q(-4,-12.5),Q(-9,-7),Q(-3,-3),Q(8,4),Q(12.5,2)])+'" fill="var(--hair)"/>';
+ o+='<path d="'+smooth([Q(9.5,-6),Q(10.5,6),Q(3,12.5),Q(-2.5,13.6),Q(-6.5,11),Q(-11,6),Q(-11.5,-2),Q(-6,-9.5),Q(4,-10)])+'" fill="var(--body)" stroke="var(--bodyedge)" stroke-width=".7"/>';
+ o+='<path d="'+smooth([Q(1.5,-4),Q(3.5,-2.6),Q(1,-1),Q(-2.5,-1.6),Q(-2,-3.8)])+'" fill="var(--bodyedge)" opacity=".75"/>';
+ o+='<ellipse cx="'+f1(Q(3,7.2)[0])+'" cy="'+f1(Q(3,7.2)[1])+'" rx="1.5" ry="1.5" fill="var(--hair)"/>';
+ o+='<path d="M'+pt(Q(5.6,5))+'L'+pt(Q(5.4,9.2))+'M'+pt(Q(-6.6,9))+'L'+pt(Q(-6.4,12))+'" stroke="var(--hair)" stroke-width="1.1" stroke-linecap="round"/>';
+ return o}
+/* anatomical landmarks so the front and back read at a glance */
+function cues(tfr,thfr,afr,sp){const pr=PROF.t,ed='var(--bodyedge)',wf=t=>wAt(pr,t,1),wb=t=>wAt(pr,t,2),pt=q=>f1(q[0])+' '+f1(q[1]);let o='';
+ const sp1=[];for(let i=0;i<=8;i++){const t=.1+.82*i/8;sp1.push(at(tfr,t,-wb(t)*.66))}
+ o+='<path d="M'+sp1.map(pt).join('L')+'" fill="none" stroke="'+ed+'" stroke-width="1.1" stroke-dasharray="1.6 2.2" stroke-linecap="round"/>';
+ o+='<path d="M'+pt(at(tfr,.9,-wb(.9)*.35))+'Q'+pt(at(tfr,.78,-wb(.78)*1.02))+' '+pt(at(tfr,.62,-wb(.62)*.42))+'" fill="none" stroke="'+ed+'" stroke-width="1"/>';
+ o+='<path d="M'+pt(at(tfr,.82,wf(.82)*.98))+'Q'+pt(at(tfr,.6,wf(.6)*1.02))+' '+pt(at(tfr,.6,wf(.6)*.2))+'" fill="none" stroke="'+ed+'" stroke-width="1"/>';
+ o+=circ(at(tfr,.7,wf(.7)*.8),1.3,ed)+circ(at(tfr,.34,wf(.34)*.8),1.4,ed);
+ o+='<ellipse cx="'+f1(at(thfr,1.01,5.4)[0])+'" cy="'+f1(at(thfr,1.01,5.4)[1])+'" rx="3.4" ry="3.4" fill="var(--bodyhi)" stroke="'+ed+'" stroke-width=".7"/>';
+ o+=circ(at(afr,1.02,-4.2),2.4,'var(--bodyhi)');
+ return o}
+const MS={traps:['Trapez','Traps','Trapèzes'],delts:['Omuz','Shoulders','Épaules'],pecs:['Göğüs','Chest','Pectoraux'],biceps:['Biseps','Biceps','Biceps'],triceps:['Triseps','Triceps','Triceps'],forearms:['Ön kol','Forearms','Avant-bras'],abs:['Karın','Abs','Abdos'],obliques:['Yan karın','Obliques','Obliques'],lats:['Kanat (sırt)','Lats (back)','Dorsaux'],lowerback:['Bel','Lower back','Lombaires'],glutes:['Kalça','Glutes','Fessiers'],quads:['Ön bacak','Quads','Quadriceps'],hams:['Arka bacak','Hamstrings','Ischios'],calves:['Baldır','Calves','Mollets']};
+const FB={f:['ÖN','FRONT','AVANT'],b:['ARKA','BACK','ARRIÈRE']};
+const MSEG={};for(const k in MUS)for(const m of MUS[k])if(!MSEG[m[0]])MSEG[m[0]]=[k,m[1],m[2],m[3]];
+function arrowHead(a,b,s,col){const dx=b[0]-a[0],dy=b[1]-a[1],d=Math.hypot(dx,dy)||1,ux=dx/d,uy=dy/d;return '<path d="M'+f1(b[0])+' '+f1(b[1])+'L'+f1(b[0]-ux*s-uy*s*.6)+' '+f1(b[1]-uy*s+ux*s*.6)+'L'+f1(b[0]-ux*s+uy*s*.6)+' '+f1(b[1]-uy*s-ux*s*.6)+'Z" fill="'+col+'"/>'}
+function overlay(P,frs){if(!showLbl)return '';const li=LI[LANG],fs=VB[2]/26,o=[];
+ /* facing indicator at the head */
+ const tf=frs.t,h=P.h,F=tf.F,fa=[h[0]+F[0]*16,h[1]+F[1]*16],fb=[h[0]+F[0]*(16+fs*1.5),h[1]+F[1]*(16+fs*1.5)],ba=[h[0]-F[0]*16,h[1]-F[1]*16],bb=[h[0]-F[0]*(16+fs*1.5),h[1]-F[1]*(16+fs*1.5)];
+ let s='<g font-family="Inter,sans-serif" font-weight="700" font-size="'+f1(fs*.78)+'">';
+ s+='<line x1="'+f1(fa[0])+'" y1="'+f1(fa[1])+'" x2="'+f1(fb[0])+'" y2="'+f1(fb[1])+'" stroke="var(--front)" stroke-width="'+f1(fs*.16)+'"/>'+arrowHead(fa,fb,fs*.55,'var(--front)');
+ const anc=v=>Math.abs(v[0])<.35?'middle':(v[0]>0?'start':'end'),fp=[fb[0]+F[0]*fs*.5,fb[1]+F[1]*fs*.5+fs*.3],bp=[bb[0]-F[0]*fs*.3,bb[1]-F[1]*fs*.3+fs*.3];
+ s+='<text x="'+f1(fp[0])+'" y="'+f1(fp[1])+'" text-anchor="'+anc(F)+'" fill="var(--front)">'+FB.f[li]+'</text>';
+ s+='<line x1="'+f1(ba[0])+'" y1="'+f1(ba[1])+'" x2="'+f1(bb[0])+'" y2="'+f1(bb[1])+'" stroke="var(--soft)" stroke-width="'+f1(fs*.12)+'" stroke-dasharray="'+f1(fs*.25)+' '+f1(fs*.2)+'"/>';
+ s+='<text x="'+f1(bp[0])+'" y="'+f1(bp[1])+'" text-anchor="'+anc([-F[0],-F[1]])+'" fill="var(--soft)">'+FB.b[li]+'</text></g>';
+ /* primary-muscle callouts */
+ const L=[];for(const m of cur.p.slice(0,3)){const g=MSEG[m];if(!g)continue;const fr=frs[g[0]],pr=PROF[g[0]],tm=(g[2]+g[3])/2,wf=wAt(pr,tm,1),wb=wAt(pr,tm,2);
+  const side=g[1]==='b'?-1:1,c=at(fr,tm,side>0?wf*.5:-wb*.5),d=[fr.F[0]*side,fr.F[1]*side],w=side>0?wf:wb,lp=[c[0]+d[0]*(w*.5+fs*1.6),c[1]+d[1]*(w*.5+fs*1.6)];L.push({c,lp,d,t:MS[m][li]})}
+ L.sort((a,b)=>a.lp[1]-b.lp[1]);for(let i=1;i<L.length;i++)if(Math.abs(L[i].lp[1]-L[i-1].lp[1])<fs*1.25&&Math.abs(L[i].lp[0]-L[i-1].lp[0])<fs*6)L[i].lp[1]=L[i-1].lp[1]+fs*1.25;
+ s+='<g font-family="Inter,sans-serif" font-weight="600" font-size="'+f1(fs*.82)+'">';
+ for(const l of L){const an=l.d[0]>=.2?'start':l.d[0]<=-.2?'end':'middle',tx=l.lp[0]+(an==='start'?fs*.25:an==='end'?-fs*.25:0),ty=l.lp[1]+(an==='middle'?(l.d[1]>0?fs*.9:-fs*.3):fs*.3);
+  s+='<circle cx="'+f1(l.c[0])+'" cy="'+f1(l.c[1])+'" r="'+f1(fs*.17)+'" fill="#fff" stroke="var(--acc)" stroke-width="'+f1(fs*.08)+'"/><line x1="'+f1(l.c[0])+'" y1="'+f1(l.c[1])+'" x2="'+f1(l.lp[0])+'" y2="'+f1(l.lp[1])+'" stroke="var(--acc)" stroke-width="'+f1(fs*.07)+'"/>';
+  s+='<text x="'+f1(tx)+'" y="'+f1(ty)+'" text-anchor="'+an+'" fill="var(--ink)" stroke="var(--card)" stroke-width="'+f1(fs*.28)+'" paint-order="stroke">'+esc(l.t)+'</text>'}
+ return s+'</g>'}
+/* ghost of the start pose + arrow of the main moving joint */
+let MOVE=null;
+function prepMove(){MOVE=null;const ks=['h','s','p','k','a','w','e'];let best=null,bd=0;for(const k of ks){const d=Math.hypot(JA[k][0]-JB[k][0],JA[k][1]-JB[k][1]);if(d>bd){bd=d;best=k}}if(bd>14)MOVE={k:best,a:JA[best],b:JB[best]}}
+function ghost(){if(!MOVE)return '';const P=JA,g='var(--soft)';const seg=(a,b,w)=>'<line x1="'+f1(a[0])+'" y1="'+f1(a[1])+'" x2="'+f1(b[0])+'" y2="'+f1(b[1])+'" stroke="'+g+'" stroke-width="'+w+'" stroke-linecap="round"/>';
+ let o='<g opacity=".16">'+seg(P.s,P.p,22)+seg(P.p,P.k,15)+seg(P.k,P.a,10)+seg(P.s,P.e,11)+seg(P.e,P.w,8)+'<circle cx="'+f1(P.h[0])+'" cy="'+f1(P.h[1])+'" r="12" fill="'+g+'"/></g>';
+ const a=MOVE.a,b=MOVE.b,mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2,dx=b[0]-a[0],dy=b[1]-a[1],c=[mx-dy*.18,my+dx*.18],end=[b[0]-(b[0]-c[0])*.12,b[1]-(b[1]-c[1])*.12];
+ o+='<path d="M'+f1(a[0])+' '+f1(a[1])+'Q'+f1(c[0])+' '+f1(c[1])+' '+f1(end[0])+' '+f1(end[1])+'" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-dasharray="4 3" opacity=".55"/>'+arrowHead(c,b,6,'var(--ink)').replace('<path','<path opacity=".55"');
+ return o}
+/* auto-fit the camera to the pose */
+let VB=[0,0,300,300];
+function fitView(){const xs=[],ys=[];for(const J of [JA,JB])for(const k in J)if(Array.isArray(J[k])){xs.push(J[k][0]);ys.push(J[k][1])}
+ let x0=Math.min(...xs)-34,x1=Math.max(...xs)+34,y0=Math.min(...ys)-30,y1=Math.max(...ys)+26;
+ if(cur.pr.some(p=>p==='floor'||p==='lo'||(Array.isArray(p)&&['box','para','wall'].includes(p[0]))))y1=Math.max(y1,266);
+ if(cur.pr.includes('hi'))y0=Math.min(y0,30);
+ let w=x1-x0,h=y1-y0,s=Math.max(w,h,170);const cx=(x0+x1)/2,cy=(y0+y1)/2;let vx=cx-s/2,vy=cy-s/2;if(vy+s<y1)vy=y1-s;
+ VB=[vx,vy,s,s];fig.setAttribute('viewBox',VB.map(f1).join(' '))}
 function draw(t){const P={sup:JA.sup};for(const k in JA)if(Array.isArray(JA[k]))P[k]=L(JA[k],JB[k],t);
- let o=props(P)+shadow(P);const sp=P.sup;
+ let o=props(P)+shadow(P)+ghost();const sp=P.sup;
  const A2=limb(P.s2,P.e2,'ua',sp,1),F2=limb(P.e2,P.w2,'fa',sp,1),T2=limb(P.p2,P.k2,'th',sp,1),S2=limb(P.k2,P.a2,'sh',sp,1);
  o+=foot(P.k2,P.a2,sp,1)+S2.o+T2.o+hand(P.e2,P.w2,1)+F2.o+A2.o;
- o+=head(P)+limb(P.p,P.s,'t',sp,0).o;
- o+=foot(P.k,P.a,sp,0)+limb(P.k,P.a,'sh',sp,0).o+limb(P.p,P.k,'th',sp,0).o;
- o+=hand(P.e,P.w,0)+limb(P.e,P.w,'fa',sp,0).o+limb(P.s,P.e,'ua',sp,0).o;
+ const TT=limb(P.p,P.s,'t',sp,0),SH=limb(P.k,P.a,'sh',sp,0),TH=limb(P.p,P.k,'th',sp,0),FA=limb(P.e,P.w,'fa',sp,0),UA=limb(P.s,P.e,'ua',sp,0);
+ o+=head(P)+TT.o;
+ o+=foot(P.k,P.a,sp,0)+SH.o+TH.o;
+ o+=cues(TT.fr,TH.fr,SH.fr,sp);
+ o+=hand(P.e,P.w,0)+FA.o+UA.o;
+ o+=overlay(P,{t:TT.fr,th:TH.fr,sh:SH.fr,ua:UA.fr,fa:FA.fr});
  fig.innerHTML=o}
 const rm=matchMedia('(prefers-reduced-motion: reduce)');
 function loop(now){if(cur)draw(rm.matches?1:phase(now));requestAnimationFrame(loop)}
@@ -439,6 +496,7 @@ const UI={
  weekL:['Her ailede şu an bulunduğun basamağı yap. Başlangıçta tam vücut 3 gün, 6 ay sonra ya da çoğu ailede 3. basamağı geçince 4 günlük bölünmüş plana geç.','In every family, train the step you\'re on now. Start with 3 full-body days; after 6 months, or once you\'ve passed step 3 in most families, switch to the 4-day split.','Dans chaque famille, travaille l\'étape où tu en es. Commence par 3 jours en full body ; après 6 mois, ou une fois l\'étape 3 passée dans la plupart des familles, passe au programme divisé sur 4 jours.'],
  w1:['Başlangıç · tam vücut, 3 gün','Beginner · full body, 3 days','Débutant · full body, 3 jours'],w2:['Orta seviye · bölünmüş, 4 gün','Intermediate · split, 4 days','Intermédiaire · divisé, 4 jours'],
  note:['Her seansa 5–7 dk ısınma ile başla: kol ve kalça çevirme, bilek ısınması, 2×5 skapular çekiş, 10 hava squatı. Eklemde keskin ağrı olursa dur; kas yanması normaldir. Tendonlar kaslardan yavaş güçlenir, bu yüzden basamak atlama.','Start every session with a 5–7 min warm-up: arm and hip circles, wrist prep, 2×5 scapular pulls, 10 air squats. Stop if you feel sharp joint pain; muscle burn is normal. Tendons adapt more slowly than muscles, so don\'t skip steps.','Commence chaque séance par 5–7 min d\'échauffement : rotations des bras et des hanches, poignets, 2×5 tractions scapulaires, 10 squats. Arrête-toi en cas de douleur vive à une articulation ; la brûlure musculaire est normale. Les tendons s\'adaptent plus lentement que les muscles : ne saute pas d\'étapes.'],
+ labels:['Etiketler','Labels','Étiquettes'],
  title:['Kalistenik Atlası','Calisthenics Atlas','Atlas de la callisthénie']};
 const MN={traps:['Trapez','Trapezius','Trapèzes'],delts:['Omuz (deltoid)','Shoulders (deltoids)','Épaules (deltoïdes)'],pecs:['Göğüs','Chest','Pectoraux'],biceps:['Biseps','Biceps','Biceps'],triceps:['Triseps','Triceps','Triceps'],forearms:['Ön kol / kavrama','Forearms / grip','Avant-bras / prise'],abs:['Karın','Abs','Abdominaux'],obliques:['Yan karın','Obliques','Obliques'],lats:['Kanat (latissimus)','Lats','Grand dorsal'],lowerback:['Bel','Lower back','Lombaires'],glutes:['Kalça','Glutes','Fessiers'],quads:['Ön bacak','Quads','Quadriceps'],hams:['Arka bacak','Hamstrings','Ischio-jambiers'],calves:['Baldır','Calves','Mollets']};
 const LVN={b:['Başlangıç','Beginner','Débutant'],i:['Orta','Intermediate','Intermédiaire'],a:['İleri','Advanced','Avancé'],e:['Elit','Elite','Élite']};
@@ -460,7 +518,7 @@ try{mem=JSON.parse(localStorage.getItem('cal-steps')||'{}')}catch(e){}
 const sub=x=>LANG==='en'?'':x.en;
 function navR(){$('nav').innerHTML=F.map(f=>'<a href="#'+f.id+'" data-f="'+f.id+'"'+(f===fam?' aria-current="page"':'')+'>'+T(f.n)+'</a>').join('')}
 
-function play(item,lvl,isAcc){cur=item;JA=solve(item.A);JB=solve(item.B);t0=performance.now();
+function play(item,lvl,isAcc){cur=item;JA=solve(item.A);JB=solve(item.B);t0=performance.now();fitView();prepMove();
  document.querySelectorAll('.m').forEach(e=>{const m=e.dataset.m;e.classList.toggle('p',item.p.includes(m));e.classList.toggle('s',!item.p.includes(m)&&item.s.includes(m))});
  $('mList').innerHTML=item.p.map(m=>'<span class="p">'+mn(m)+'</span>').join('')+item.s.map(m=>'<span class="s">'+mn(m)+'</span>').join('');
  $('figName').textContent=T(item.n)+(sub(item)?' · '+item.en:'');$('figTempo').textContent=T(item.tempo);
@@ -510,6 +568,8 @@ function weeks(){$('w1').innerHTML=wk(W1);$('w2').innerHTML=wk(W2)}
 
 $('lang').addEventListener('click',e=>{const b=e.target.closest('button');if(!b||b.dataset.l===LANG)return;LANG=b.dataset.l;try{localStorage.setItem('cal-lang',LANG)}catch(x){}
  applyStatic();weeks();showFam(fam.id,true)});
+let showLbl=true;try{showLbl=localStorage.getItem('cal-lbl')!=='0'}catch(e){}
+$('lblBtn').setAttribute('aria-pressed',showLbl);$('lblBtn').addEventListener('click',()=>{showLbl=!showLbl;$('lblBtn').setAttribute('aria-pressed',showLbl);try{localStorage.setItem('cal-lbl',showLbl?'1':'0')}catch(e){}});
 applyStatic();weeks();route();requestAnimationFrame(loop);
 window.__cal={F,ACC,solve};
 }
